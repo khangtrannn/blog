@@ -1,0 +1,15 @@
+<div class="title-wrapper">
+  <p class="title">Document Name</p>
+  <input class="title-input" [(ngModel)]="title" type="text">
+</div>
+
+<div class="editor-wrapper">
+  <div class="editor">
+    <textarea autofocus class="content" [(ngModel)]="postContent"></textarea>
+  </div>
+  <div class="preview">
+    <markdown [data]="postContent()"></markdown>
+  </div>
+</div>
+
+<div class="separator"></div>
