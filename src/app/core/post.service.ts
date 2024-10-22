@@ -11,8 +11,12 @@ const POSTS_URL = `${BASE_URL}/posts`;
 export class PostService {
     #http = inject(HttpClient);
 
-    create(title: string, content: string) {
-        return this.#http.post(POSTS_URL, { title, content });
+    create(post: Post) {
+        return this.#http.post<{ id: string }>(POSTS_URL, { title: post.title, content: post.content });
+    }
+
+    update(post: Post) {
+        return this.#http.put(`${POSTS_URL}/${post.id}`, { title: post.title, content: post.content });
     }
 
     getAll() {

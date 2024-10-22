@@ -3,3 +3,8 @@ export interface Post {
   title: string;
   content: string;
 }
+
+export interface NewPost {
+  title: string;
+  content: string;
+}

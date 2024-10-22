@@ -1,14 +1,14 @@
 <div class="title-wrapper">
   <p class="title">Document Name</p>
-  <input class="title-input" [(ngModel)]="title" type="text">
+  <input class="title-input" [(ngModel)]="post().title" type="text">
 </div>
 
 <div class="editor-wrapper">
   <div class="editor">
-    <textarea autofocus class="content" [(ngModel)]="content"></textarea>
+    <textarea autofocus class="content" [(ngModel)]="post().content"></textarea>
   </div>
   <div class="preview">
-    <markdown [data]="content()"></markdown>
+    <markdown [data]="post().content"></markdown>
   </div>
 </div>
 
