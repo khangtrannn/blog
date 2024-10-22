@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { SvgIconComponent } from 'angular-svg-icon';
+import { Post } from '../../../core/post';
 
 @Component({
   selector: 'app-post-entry',
@@ -9,5 +10,5 @@ import { SvgIconComponent } from 'angular-svg-icon';
   styleUrl: './post-entry.component.scss'
 })
 export class PostEntryComponent {
-
+  post = input.required<Post>();
 }

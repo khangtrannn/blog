@@ -1,3 +1,5 @@
 <div class="tw-max-w-[768px] tw-mx-auto tw-mt-20">
-  <app-post-entry />
+  @for (post of posts(); track post.id) {
+    <app-post-entry [post]="post"></app-post-entry>
+  }
 </div>
