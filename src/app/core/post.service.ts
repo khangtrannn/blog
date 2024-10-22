@@ -19,6 +19,10 @@ export class PostService {
         return this.#http.put(`${POSTS_URL}/${post.id}`, { title: post.title, content: post.content });
     }
 
+    getById(id: string) {
+        return this.#http.get<Post>(`${POSTS_URL}/${id}`);
+    }
+
     getAll() {
         return this.#http.get<Post[]>(POSTS_URL);
     }

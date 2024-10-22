@@ -1,1 +1,5 @@
-<p>edit-post works!</p>
+@let data = post();
+
+@if (data) {
+  <app-content-editor [(post)]="data!" />
+}
