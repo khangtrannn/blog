@@ -1,15 +1,1 @@
-<div class="title-wrapper">
-  <p class="title">Document Name</p>
-  <input class="title-input" [(ngModel)]="title" type="text">
-</div>
-
-<div class="editor-wrapper">
-  <div class="editor">
-    <textarea autofocus class="content" [(ngModel)]="content"></textarea>
-  </div>
-  <div class="preview">
-    <markdown [data]="content()"></markdown>
-  </div>
-</div>
-
-<div class="separator"></div>
+<router-outlet />
