@@ -7,6 +7,6 @@ export const routes: Routes = [
   },
   {
     path: 'editor',
-    loadComponent: async () => ((await import('./features/editor/editor.component')).EditorComponent),
+    loadChildren: async () => import('./features/editor/editor.routes'),
   },
 ];
