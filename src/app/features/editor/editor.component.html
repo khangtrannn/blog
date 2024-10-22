@@ -5,10 +5,10 @@
 
 <div class="editor-wrapper">
   <div class="editor">
-    <textarea autofocus class="content" [(ngModel)]="postContent"></textarea>
+    <textarea autofocus class="content" [(ngModel)]="content"></textarea>
   </div>
   <div class="preview">
-    <markdown [data]="postContent()"></markdown>
+    <markdown [data]="content()"></markdown>
   </div>
 </div>
 

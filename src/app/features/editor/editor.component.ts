@@ -1,6 +1,9 @@
-import { Component, HostListener, signal } from '@angular/core';
+import { Component, HostListener, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MarkdownComponent } from 'ngx-markdown';
+import { PostService } from '../../core/post.service';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-editor',
@@ -10,19 +13,28 @@ import { MarkdownComponent } from 'ngx-markdown';
   styleUrl: './editor.component.scss'
 })
 export class EditorComponent {
-  postContent = signal('');
   title = signal('Untitled Document');
+  content = signal('');
+
+  #snackBar = inject(MatSnackBar);
+  #postService = inject(PostService);
 
   @HostListener('window:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-     // Check for Ctrl + S or Command + S
     if ((event.ctrlKey || event.metaKey) && event.key === 's') {
-      event.preventDefault(); // Prevent the default save dialog
-      this.onSave(); // Call your save function
+      event.preventDefault();
+      this.onSave();
     }
   }
 
-  onSave() {
-    console.log('Saving data...');
+  async onSave() {
+    this.#snackBar.open('Saving post...');
+    try {
+      await lastValueFrom(this.#postService.create(this.title(), this.content()));
+      this.#snackBar.open('Saved post success');
+    } catch (err) {
+      console.error(err);
+      this.#snackBar.open('Saved post error');
+    }
   }
 }

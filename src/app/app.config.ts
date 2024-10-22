@@ -5,6 +5,7 @@ import { routes } from './app.routes';
 import { provideAngularSvgIcon } from 'angular-svg-icon';
 import { provideHttpClient } from '@angular/common/http';
 import { provideMarkdown } from 'ngx-markdown';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -12,6 +13,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAngularSvgIcon(),
     provideHttpClient(),
-    provideMarkdown(),
+    provideMarkdown(), provideAnimationsAsync(),
   ],
 };
