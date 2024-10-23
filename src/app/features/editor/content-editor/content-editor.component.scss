@@ -1,3 +1,11 @@
+:host {
+  ::ng-deep {
+    .hljs {
+      padding: 1rem;
+    }
+  }
+}
+
 .title {
   line-height: 1rem;
   font-size: 0.8rem;
@@ -45,6 +53,7 @@
 
   .preview {
     padding: 0 1.5rem;
+    font-size: 14px;
   }
 }
 
@@ -54,8 +63,4 @@
   position: absolute;
   height: 100vh;
   border-left: 1px solid #ccc;
-}
-
-markdown {
-  font-size: 14px;
 }

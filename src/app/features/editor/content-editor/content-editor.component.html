@@ -8,7 +8,8 @@
     <textarea autofocus class="content" [(ngModel)]="post().content"></textarea>
   </div>
   <div class="preview">
-    <markdown [data]="post().content"></markdown>
+    <div [innerHTML]="compiledMarkdown()"></div>
+    <!-- <markdown [data]="post().content"></markdown> -->
   </div>
 </div>
 

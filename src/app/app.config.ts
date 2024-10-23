@@ -4,8 +4,9 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { routes } from './app.routes';
 import { provideAngularSvgIcon } from 'angular-svg-icon';
 import { provideHttpClient } from '@angular/common/http';
-import { provideMarkdown } from 'ngx-markdown';
+import { MARKED_OPTIONS, provideMarkdown } from 'ngx-markdown';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import hljs from 'highlight.js';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,6 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withComponentInputBinding()),
     provideAngularSvgIcon(),
     provideHttpClient(),
-    provideMarkdown(), provideAnimationsAsync(),
+    provideMarkdown(), 
+    provideAnimationsAsync(),
   ],
 };
