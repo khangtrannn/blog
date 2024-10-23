@@ -26,29 +26,10 @@ const md = new MarkdownIt({
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContentEditorComponent {
-  post = model.required<Post>();
-
-  title = signal('');
-  content = signal(''); 
+  title = model.required<string>();
+  content = model.required<string>(); 
 
   compiledMarkdown = computed(() => {
-    return md.render(this.post().content);
-  });
-
-  #initializedData = effect(() => {
-    const post = this.post();
-    untracked(() => {
-      this.title.set(post.title);
-      this.content.set(post.content);
-    });
-  });
-
-  #syncChanges = effect(() => {
-    const title = this.title();
-    const content = this.content();
-
-    untracked(() => {
-      this.post.update((post) => ({ ...post, title, content }));
-    });
+    return md.render(this.content());
   });
 }
