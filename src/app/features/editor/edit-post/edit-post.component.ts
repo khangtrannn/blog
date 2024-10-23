@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, effect, HostListener, inject, input, signal, untracked } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, HostListener, inject, input, signal, untracked } from '@angular/core';
 import { PostService } from '../../../core/post.service';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ContentEditorComponent } from '../content-editor/content-editor.component';
@@ -20,14 +20,19 @@ export class EditPostComponent {
   #snackBar = inject(MatSnackBar);
 
   id = input.required<string>();
-  post = signal<Post>({ id: '', content: '', title: '' });
+
+  title = signal('');
+  content = signal('');
+
+  #post = computed(() => ({ id: this.id(), title: this.title(), content: this.content() }));
 
   #fetchPost = effect(() => {
     const id = this.id();
 
     untracked(() => {
       this.#postService.getById(id).pipe(takeUntilDestroyed(this.#destroyRef)).subscribe((post) => {
-        this.post.set(post);
+        this.title.set(post.title);
+        this.content.set(post.content);
       })
     })
   });
@@ -53,7 +58,6 @@ export class EditPostComponent {
   }
 
   async #update() {
-    console.log(this.post());
-    await lastValueFrom(this.#postService.update(this.post()!));
+    await lastValueFrom(this.#postService.update(this.#post()));
   }
 }

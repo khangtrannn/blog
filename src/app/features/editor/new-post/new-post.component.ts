@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, HostListener, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, HostListener, inject, signal } from '@angular/core';
 import { ContentEditorComponent } from '../content-editor/content-editor.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { lastValueFrom } from 'rxjs';
 import { PostService } from '../../../core/post.service';
-import { Post } from '../../../core/post';
 
 @Component({
   selector: 'app-new-post',
@@ -14,9 +13,14 @@ import { Post } from '../../../core/post';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewPostComponent {
-  post = signal<Post>({ id: '', title: 'Untitled Document', content: '', });
   #snackBar = inject(MatSnackBar);
   #postService = inject(PostService);
+
+  id = signal('');
+  title = signal('');
+  content = signal('');
+
+  #post = computed(() => ({ id: this.id(), title: this.title(), content: this.content() }));
 
   @HostListener('window:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
@@ -30,7 +34,7 @@ export class NewPostComponent {
     this.#snackBar.open('Saving post...');
 
     try {
-      if (this.post().id) {
+      if (this.id()) {
         this.#update();
       } else {
         this.#createNew();
@@ -44,11 +48,11 @@ export class NewPostComponent {
   }
 
   async #createNew() {
-    const response = await lastValueFrom(this.#postService.create(this.post()));
-    this.post.update((post) => ({ ...post, id: response.id }));
+    const response = await lastValueFrom(this.#postService.create(this.#post()));
+    this.id.set(response.id);
   }
 
   async #update() {
-    await lastValueFrom(this.#postService.update(this.post()));
+    await lastValueFrom(this.#postService.update(this.#post()));
   }
 }
