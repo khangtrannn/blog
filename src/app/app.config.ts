@@ -1,16 +1,15 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideExperimentalZonelessChangeDetection } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 
-import { routes } from './app.routes';
-import { provideAngularSvgIcon } from 'angular-svg-icon';
 import { provideHttpClient } from '@angular/common/http';
-import { MARKED_OPTIONS, provideMarkdown } from 'ngx-markdown';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import hljs from 'highlight.js';
+import { provideAngularSvgIcon } from 'angular-svg-icon';
+import { provideMarkdown } from 'ngx-markdown';
+import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideExperimentalZonelessChangeDetection(),
     provideRouter(routes, withComponentInputBinding()),
     provideAngularSvgIcon(),
     provideHttpClient(),

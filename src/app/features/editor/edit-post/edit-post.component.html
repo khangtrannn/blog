@@ -1,5 +1,3 @@
-@let data = post();
-
-@if (data) {
-  <app-content-editor [(post)]="data!" />
+@if (post()) {
+  <app-content-editor [(post)]="post" />
 }

@@ -1,4 +1,4 @@
-import { Component, HostListener, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, inject, signal } from '@angular/core';
 import { ContentEditorComponent } from '../content-editor/content-editor.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { lastValueFrom } from 'rxjs';
@@ -10,7 +10,8 @@ import { Post } from '../../../core/post';
   standalone: true,
   imports: [ContentEditorComponent],
   templateUrl: './new-post.component.html',
-  styleUrl: './new-post.component.scss'
+  styleUrl: './new-post.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NewPostComponent {
   post = signal<Post>({ id: '', title: 'Untitled Document', content: '', });

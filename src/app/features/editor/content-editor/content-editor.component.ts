@@ -1,4 +1,4 @@
-import { Component, computed, model } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, model, signal, untracked } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MarkdownComponent } from 'ngx-markdown';
 import { Post } from '../../../core/post';
@@ -22,12 +22,33 @@ const md = new MarkdownIt({
   standalone: true,
   imports: [MarkdownComponent, FormsModule],
   templateUrl: './content-editor.component.html',
-  styleUrl: './content-editor.component.scss'
+  styleUrl: './content-editor.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContentEditorComponent {
   post = model.required<Post>();
 
+  title = signal('');
+  content = signal(''); 
+
   compiledMarkdown = computed(() => {
     return md.render(this.post().content);
+  });
+
+  #initializedData = effect(() => {
+    const post = this.post();
+    untracked(() => {
+      this.title.set(post.title);
+      this.content.set(post.content);
+    });
+  });
+
+  #syncChanges = effect(() => {
+    const title = this.title();
+    const content = this.content();
+
+    untracked(() => {
+      this.post.update((post) => ({ ...post, title, content }));
+    });
   });
 }
