@@ -18,7 +18,6 @@ import hljs from 'highlight.js';
 import MarkdownIt from 'markdown-it';
 import { formatJs } from '../../../core/prettier';
 
-
 const TYPESCRIPT_REGEX = /```typescript[\s\S]*?```/g;
 
 const md = new MarkdownIt({
