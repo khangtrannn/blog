@@ -1,4 +1,7 @@
-import { ApplicationConfig, provideExperimentalZonelessChangeDetection } from '@angular/core';
+import {
+  ApplicationConfig,
+  provideExperimentalZonelessChangeDetection,
+} from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { provideHttpClient } from '@angular/common/http';
@@ -13,7 +16,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withComponentInputBinding()),
     provideAngularSvgIcon(),
     provideHttpClient(),
-    provideMarkdown(), 
+    provideMarkdown(),
     provideAnimationsAsync(),
   ],
 };

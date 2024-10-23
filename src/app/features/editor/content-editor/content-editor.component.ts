@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, computed, effect, model, signal, untracked } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  model,
+  signal,
+  untracked,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MarkdownComponent } from 'ngx-markdown';
 import { Post } from '../../../core/post';
@@ -27,7 +35,7 @@ const md = new MarkdownIt({
 })
 export class ContentEditorComponent {
   title = model.required<string>();
-  content = model.required<string>(); 
+  content = model.required<string>();
 
   compiledMarkdown = computed(() => {
     return md.render(this.content());

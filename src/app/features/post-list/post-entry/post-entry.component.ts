@@ -8,7 +8,7 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [SvgIconComponent, RouterLink],
   templateUrl: './post-entry.component.html',
-  styleUrl: './post-entry.component.scss'
+  styleUrl: './post-entry.component.scss',
 })
 export class PostEntryComponent {
   post = input.required<Post>();

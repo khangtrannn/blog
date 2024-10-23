@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, HostListener, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  HostListener,
+  inject,
+  signal,
+} from '@angular/core';
 import { ContentEditorComponent } from '../content-editor/content-editor.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { lastValueFrom } from 'rxjs';
@@ -20,7 +27,11 @@ export class NewPostComponent {
   title = signal('Untitled Document');
   content = signal('');
 
-  #post = computed(() => ({ id: this.id(), title: this.title(), content: this.content() }));
+  #post = computed(() => ({
+    id: this.id(),
+    title: this.title(),
+    content: this.content(),
+  }));
 
   @HostListener('window:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
@@ -48,7 +59,9 @@ export class NewPostComponent {
   }
 
   async #createNew() {
-    const response = await lastValueFrom(this.#postService.create(this.#post()));
+    const response = await lastValueFrom(
+      this.#postService.create(this.#post()),
+    );
     this.id.set(response.id);
   }
 

@@ -8,7 +8,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
   standalone: true,
   imports: [PostEntryComponent],
   templateUrl: './post-list.component.html',
-  styleUrl: './post-list.component.scss'
+  styleUrl: './post-list.component.scss',
 })
 export class PostListComponent {
   #postService = inject(PostService);

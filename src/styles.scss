@@ -1,7 +1,6 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -10,16 +9,18 @@
 @include mat.core();
 
 // Define the theme object.
-$blog-theme: mat.define-theme((
-  color: (
-    theme-type: light,
-    primary: mat.$azure-palette,
-    tertiary: mat.$blue-palette,
-  ),
-  density: (
-    scale: 0,
+$blog-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    density: (
+      scale: 0,
+    ),
   )
-));
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -66,14 +67,26 @@ $blog-theme: mat.define-theme((
   --link-hover-underline-shadow: 0 2px 0 var(--link-hover-underline-color);
 }
 
-*, ::after, ::before {
+*,
+::after,
+::before {
   box-sizing: border-box;
 }
 
 html {
   body {
-    font-family: -apple-system, BlinkMacSystemFont, Helvetica, helvetica neue,
-      segoe ui, Roboto, Oxygen, Ubuntu, Cantarell, open sans, sans-serif;
+    font-family:
+      -apple-system,
+      BlinkMacSystemFont,
+      Helvetica,
+      helvetica neue,
+      segoe ui,
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      open sans,
+      sans-serif;
     font-size: 18px;
     line-height: 1.6em;
     word-break: break-word;
@@ -137,5 +150,11 @@ html {
   }
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
