@@ -16,7 +16,10 @@ import { MarkdownComponent } from 'ngx-markdown';
 
 import hljs from 'highlight.js';
 import MarkdownIt from 'markdown-it';
-import { formatAngularTemplate, formatJs } from '../../../core/prettier';
+import { formatJs } from '../../../core/prettier';
+
+
+const TYPESCRIPT_REGEX = /```typescript[\s\S]*?```/g;
 
 const md = new MarkdownIt({
   highlight: (str: string, lang: string, _attrs: string): string => {
@@ -65,11 +68,16 @@ export class ContentEditorComponent {
 
   async #formatCode() {
     try {
-      const selectedText = this.#getSelectionText();
-      const formattedCode = await formatJs(selectedText);
-      this.content.update((content) => {
-        return content.replace(selectedText, formattedCode);
-      });
+      const typescriptCodeBlocks = this.content().match(TYPESCRIPT_REGEX);
+      let formattedContent = this.content();
+
+      for (const codeBlock of typescriptCodeBlocks!) {
+        const code = codeBlock.match(/```typescript\s*([\s\S]*?)```/)![1];
+        const formattedCode = await formatJs(code);
+        formattedContent = formattedContent.replace(code, formattedCode);
+      }
+
+      this.content.set(formattedContent);
     } catch (error) {
       console.error('Error formatting code:', error);
     }
