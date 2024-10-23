@@ -3,18 +3,20 @@ import {
   Component,
   computed,
   effect,
+  ElementRef,
   HostListener,
   model,
   output,
   signal,
   untracked,
+  viewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MarkdownComponent } from 'ngx-markdown';
-import { Post } from '../../../core/post';
 
 import hljs from 'highlight.js';
 import MarkdownIt from 'markdown-it';
+import { formatAngularTemplate, formatJs } from '../../../core/prettier';
 
 const md = new MarkdownIt({
   highlight: (str: string, lang: string, _attrs: string): string => {
@@ -41,6 +43,9 @@ export class ContentEditorComponent {
 
   save = output<void>();
 
+  contentElementRef =
+    viewChild.required<ElementRef<HTMLTextAreaElement>>('contentInput');
+
   compiledMarkdown = computed(() => {
     return md.render(this.content());
   });
@@ -51,5 +56,29 @@ export class ContentEditorComponent {
       event.preventDefault();
       this.save.emit();
     }
+
+    if ((event.ctrlKey || event.metaKey) && event.key === 'f') {
+      event.preventDefault();
+      this.#formatCode();
+    }
+  }
+
+  async #formatCode() {
+    try {
+      const selectedText = this.#getSelectionText();
+      const formattedCode = await formatJs(selectedText);
+      this.content.update((content) => {
+        return content.replace(selectedText, formattedCode);
+      });
+    } catch (error) {
+      console.error('Error formatting code:', error);
+    }
+  }
+
+  #getSelectionText() {
+    const textarea = this.contentElementRef()?.nativeElement;
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    return textarea.value.substring(start, end);
   }
 }
