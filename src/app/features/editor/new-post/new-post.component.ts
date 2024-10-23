@@ -17,7 +17,7 @@ export class NewPostComponent {
   #postService = inject(PostService);
 
   id = signal('');
-  title = signal('');
+  title = signal('Untitled Document');
   content = signal('');
 
   #post = computed(() => ({ id: this.id(), title: this.title(), content: this.content() }));
