@@ -33,14 +33,6 @@ export class NewPostComponent {
     content: this.content(),
   }));
 
-  @HostListener('window:keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    if ((event.ctrlKey || event.metaKey) && event.key === 's') {
-      event.preventDefault();
-      this.onSave();
-    }
-  }
-
   onSave() {
     this.#snackBar.open('Saving post...');
 

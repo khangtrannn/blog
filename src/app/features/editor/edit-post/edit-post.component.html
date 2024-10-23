@@ -1,1 +1,4 @@
-<app-content-editor [(title)]="title" [(content)]="content" />
+<app-content-editor 
+  [(title)]="title" 
+  [(content)]="content" 
+  (save)="onSave()" />

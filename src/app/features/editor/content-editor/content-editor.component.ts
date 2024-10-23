@@ -3,7 +3,9 @@ import {
   Component,
   computed,
   effect,
+  HostListener,
   model,
+  output,
   signal,
   untracked,
 } from '@angular/core';
@@ -37,7 +39,17 @@ export class ContentEditorComponent {
   title = model.required<string>();
   content = model.required<string>();
 
+  save = output<void>();
+
   compiledMarkdown = computed(() => {
     return md.render(this.content());
   });
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if ((event.ctrlKey || event.metaKey) && event.key === 's') {
+      event.preventDefault();
+      this.save.emit();
+    }
+  }
 }
