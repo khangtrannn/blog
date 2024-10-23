@@ -1,21 +1,23 @@
-<div class="title-wrapper">
-  <p class="title">Document Name</p>
-  <input class="title-input" [(ngModel)]="title" type="text" />
-</div>
-
-<div class="editor-wrapper">
-  <div class="editor">
-    <textarea
-      #contentInput
-      autofocus
-      class="content"
-      [spellcheck]="false"
-      [(ngModel)]="content"
-    ></textarea>
+<div class="content-editor">
+  <div class="title-wrapper">
+    <p class="title">Document Name</p>
+    <input class="title-input" [(ngModel)]="title" type="text" />
   </div>
-  <div class="preview">
-    <div [innerHTML]="compiledMarkdown()"></div>
-  </div>
-</div>
 
-<div class="separator"></div>
+  <div class="editor-wrapper">
+    <div class="editor">
+      <textarea
+        #contentInput
+        autofocus
+        class="content"
+        [spellcheck]="false"
+        [(ngModel)]="content"
+      ></textarea>
+    </div>
+    <div class="preview">
+      <div [innerHTML]="compiledMarkdown()"></div>
+    </div>
+  </div>
+
+  <div class="separator"></div>
+</div>

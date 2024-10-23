@@ -6,6 +6,7 @@ import {
   ElementRef,
   HostListener,
   model,
+  OnInit,
   output,
   signal,
   untracked,
@@ -39,7 +40,7 @@ const md = new MarkdownIt({
   styleUrl: './content-editor.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ContentEditorComponent {
+export class ContentEditorComponent implements OnInit {
   title = model.required<string>();
   content = model.required<string>();
 
@@ -47,6 +48,8 @@ export class ContentEditorComponent {
 
   contentElementRef =
     viewChild.required<ElementRef<HTMLTextAreaElement>>('contentInput');
+
+  contentElement = computed(() => this.contentElementRef().nativeElement);
 
   compiledMarkdown = computed(() => {
     return md.render(this.content());
@@ -65,8 +68,13 @@ export class ContentEditorComponent {
     }
   }
 
+  ngOnInit(): void {
+    window.scrollTo(0, 0);
+  }
+
   async #formatCode() {
     try {
+      const cursorPosition = this.contentElement().selectionStart;
       const typescriptCodeBlocks = this.content().match(TYPESCRIPT_REGEX);
       let formattedContent = this.content();
 
@@ -77,15 +85,12 @@ export class ContentEditorComponent {
       }
 
       this.content.set(formattedContent);
+
+      setTimeout(() => {
+        this.contentElement().setSelectionRange(cursorPosition, cursorPosition);
+      });
     } catch (error) {
       console.error('Error formatting code:', error);
     }
-  }
-
-  #getSelectionText() {
-    const textarea = this.contentElementRef()?.nativeElement;
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    return textarea.value.substring(start, end);
   }
 }

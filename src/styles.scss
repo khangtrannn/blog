@@ -91,6 +91,9 @@ html {
     line-height: 1.6em;
     word-break: break-word;
     background: var(--theme);
+  }
+
+  body:has(.content-editor) {
     overflow: hidden;
   }
 
