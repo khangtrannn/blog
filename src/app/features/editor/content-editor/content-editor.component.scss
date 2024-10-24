@@ -26,8 +26,8 @@
 
   &-wrapper {
     display: flex;
-    margin: 1.5rem 1.5rem 3rem;
-    justify-content: space-between;
+    margin: 1.5rem 1.5rem 2.5rem;
+    flex-direction: column;
   }
 }
 
