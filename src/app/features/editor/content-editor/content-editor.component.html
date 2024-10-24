@@ -1,25 +1,43 @@
-<div class="title-wrapper">
-  <div class="tw-flex tw-mb-2 tw-gap-2 tw-items-center tw-relative">
-    <p class="title">Document Name</p>
-    <span class="indicator" [class.unsaved-changes]="unsavedChanges()"></span>
+<div class="content-editor">
+  <div class="title-wrapper">
+    <div>
+      <div class="tw-flex tw-mb-2 tw-gap-2 tw-items-center tw-relative">
+        <p class="title">Document Name</p>
+        <span
+          class="indicator"
+          [class.unsaved-changes]="unsavedChanges()"
+        ></span>
+      </div>
+      <input class="title-input" [(ngModel)]="title" type="text" />
+    </div>
+    <a
+      [routerLink]="'/'"
+      class="tw-flex tw-cursor-pointer tw-mb-6 tw-text-sm tw-gap-2 tw-items-center tw-text-gray-500 tw-transition-colors tw-duration-200"
+    >
+      <svg-icon
+        class="tw-flex"
+        [svgStyle]="{ 'width.px': 14, 'height.px': 14 }"
+        src="icons/arrow-left.svg"
+      ></svg-icon>
+      Back to Second Brain
+    </a>
   </div>
-  <input class="title-input" [(ngModel)]="title" type="text" />
-</div>
 
-<div class="editor-wrapper">
-  <div class="editor disable-scrollbars">
-    <textarea
-      appContentEditor
-      #editor="contentEditor"
-      autofocus
-      class="content"
-      [spellcheck]="false"
-      [(ngModel)]="content"
-    ></textarea>
+  <div class="editor-wrapper">
+    <div class="editor disable-scrollbars">
+      <textarea
+        appContentEditor
+        #editor="contentEditor"
+        autofocus
+        class="content"
+        [spellcheck]="false"
+        [(ngModel)]="content"
+      ></textarea>
+    </div>
+    <div class="preview disable-scrollbars">
+      <div [innerHTML]="compiledMarkdown()"></div>
+    </div>
   </div>
-  <div class="preview disable-scrollbars">
-    <div [innerHTML]="compiledMarkdown()"></div>
-  </div>
-</div>
 
-<div class="separator"></div>
+  <div class="separator"></div>
+</div>

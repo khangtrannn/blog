@@ -91,9 +91,12 @@ html {
     line-height: 1.6em;
     word-break: break-word;
     background: var(--theme);
-    overflow: hidden;
     max-width: 1800px;
     margin: 0 auto;
+  }
+
+  body:has(.content-editor) {
+    overflow: hidden;
   }
 
   article,

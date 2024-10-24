@@ -20,6 +20,8 @@ import hljs from 'highlight.js';
 import MarkdownIt from 'markdown-it';
 import { ContentEditorDirective } from '../../../core/content-editor.directive';
 import { ContentEditorService } from '../../../core/content-editor.service';
+import { SvgIconComponent } from 'angular-svg-icon';
+import { RouterLink } from '@angular/router';
 
 const md = new MarkdownIt({
   highlight: (str: string, lang: string, _attrs: string): string => {
@@ -35,7 +37,13 @@ const md = new MarkdownIt({
 @Component({
   selector: 'app-content-editor',
   standalone: true,
-  imports: [MarkdownComponent, FormsModule, ContentEditorDirective],
+  imports: [
+    MarkdownComponent,
+    FormsModule,
+    ContentEditorDirective,
+    SvgIconComponent,
+    RouterLink,
+  ],
   templateUrl: './content-editor.component.html',
   styleUrl: './content-editor.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

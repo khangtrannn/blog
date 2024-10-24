@@ -90,7 +90,7 @@ export class ContentEditorDirective implements OnInit {
       `${beforeCursor}\n${indent}${afterCursor}`,
     );
     this.#setCursorPosition(cursorPosition + indent.length + 1);
-  } 
+  }
 
   async #formatCode() {
     try {
