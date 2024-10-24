@@ -1,5 +1,6 @@
 import {
   ApplicationConfig,
+  importProvidersFrom,
   provideExperimentalZonelessChangeDetection,
 } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
@@ -9,6 +10,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideAngularSvgIcon } from 'angular-svg-icon';
 import { provideMarkdown } from 'ngx-markdown';
 import { routes } from './app.routes';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,5 +20,8 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideMarkdown(),
     provideAnimationsAsync(),
+    importProvidersFrom(
+      NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }),
+    ),
   ],
 };

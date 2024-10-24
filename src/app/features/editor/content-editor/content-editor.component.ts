@@ -2,13 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  effect,
   ElementRef,
   HostListener,
+  inject,
   model,
   output,
-  signal,
-  untracked,
   viewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -17,6 +15,7 @@ import { MarkdownComponent } from 'ngx-markdown';
 import hljs from 'highlight.js';
 import MarkdownIt from 'markdown-it';
 import { formatJs } from '../../../core/prettier';
+import { ContentEditorService } from '../../../core/content-editor.service';
 
 const TYPESCRIPT_REGEX = /```typescript[\s\S]*?```/g;
 
@@ -40,6 +39,8 @@ const md = new MarkdownIt({
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContentEditorComponent {
+  #contentEditorService = inject(ContentEditorService);
+
   title = model.required<string>();
   content = model.required<string>();
 
@@ -47,6 +48,8 @@ export class ContentEditorComponent {
 
   contentElementRef =
     viewChild.required<ElementRef<HTMLTextAreaElement>>('contentInput');
+
+  #contentElement = computed(() => this.contentElementRef().nativeElement);
 
   compiledMarkdown = computed(() => {
     return md.render(this.content());
@@ -62,6 +65,23 @@ export class ContentEditorComponent {
     if ((event.ctrlKey || event.metaKey) && event.key === 'f') {
       event.preventDefault();
       this.#formatCode();
+    }
+
+    if (event.key === 'Enter') {
+      event.preventDefault();
+
+      const cursorPos = this.#contentElement().selectionStart;
+      const formattedContent = this.#contentEditorService.getIndentContent(
+        this.content(),
+        cursorPos,
+      );
+      this.content.set(formattedContent.content);
+
+      setTimeout(() => {
+        this.#contentElement().selectionStart =
+          this.#contentElement().selectionEnd =
+            cursorPos + formattedContent.indent.length + 1;
+      });
     }
   }
 
@@ -80,12 +100,5 @@ export class ContentEditorComponent {
     } catch (error) {
       console.error('Error formatting code:', error);
     }
-  }
-
-  #getSelectionText() {
-    const textarea = this.contentElementRef()?.nativeElement;
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    return textarea.value.substring(start, end);
   }
 }
