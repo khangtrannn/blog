@@ -92,6 +92,8 @@ html {
     word-break: break-word;
     background: var(--theme);
     overflow: hidden;
+    max-width: 1800px;
+    margin: 0 auto;
   }
 
   article,
@@ -142,11 +144,6 @@ html {
 
   a {
     text-decoration: none;
-  }
-
-  body,
-  figure {
-    margin: 0;
   }
 }
 

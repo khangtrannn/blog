@@ -13,7 +13,6 @@ import {
 import { PostService } from '../../../core/post.service';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ContentEditorComponent } from '../content-editor/content-editor.component';
-import { Post } from '../../../core/post';
 import { lastValueFrom } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 

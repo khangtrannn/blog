@@ -2,10 +2,15 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  effect,
   ElementRef,
   HostListener,
+  inject,
+  input,
   model,
   output,
+  signal,
+  untracked,
   viewChild,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -14,6 +19,7 @@ import { MarkdownComponent } from 'ngx-markdown';
 import hljs from 'highlight.js';
 import MarkdownIt from 'markdown-it';
 import { ContentEditorDirective } from '../../../core/content-editor.directive';
+import { ContentEditorService } from '../../../core/content-editor.service';
 
 const md = new MarkdownIt({
   highlight: (str: string, lang: string, _attrs: string): string => {
@@ -35,8 +41,11 @@ const md = new MarkdownIt({
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContentEditorComponent {
+  #contentEditorService = inject(ContentEditorService);
+
   title = model.required<string>();
   content = model.required<string>();
+  unsavedChanges = this.#contentEditorService.unsavedChanges;
 
   save = output<void>();
 

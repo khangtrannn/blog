@@ -1,12 +1,16 @@
 <div class="title-wrapper">
-  <p class="title">Document Name</p>
+  <div class="tw-flex tw-mb-2 tw-gap-2 tw-items-center tw-relative">
+    <p class="title">Document Name</p>
+    <span class="indicator" [class.unsaved-changes]="unsavedChanges()"></span>
+  </div>
   <input class="title-input" [(ngModel)]="title" type="text" />
 </div>
 
 <div class="editor-wrapper">
   <div class="editor disable-scrollbars">
     <textarea
-      contentEditor
+      appContentEditor
+      #editor="contentEditor"
       autofocus
       class="content"
       [spellcheck]="false"
