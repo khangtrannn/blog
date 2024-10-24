@@ -1,5 +1,23 @@
-<div class="tw-max-w-[768px] tw-mx-auto tw-mt-20">
-  @for (post of posts(); track post.id) {
-    <app-post-entry [post]="post"></app-post-entry>
-  }
+<div class="tw-max-w-[768px] tw-mx-auto tw-mt-14">
+  <div class="tw-flex tw-justify-end">
+    <a
+      [routerLink]="'/editor/new'"
+      class="tw-flex tw-mr-0 tw-cursor-pointer tw-mb-6 tw-text-sm tw-font-bold tw-gap-2 tw-items-center tw-text-gray-500 tw-transition-colors tw-duration-200 hover:tw-underline"
+    >
+      <svg-icon
+        class="tw-flex"
+        [svgStyle]="{ 'width.px': 18, 'height.px': 18 }"
+        src="icons/plus.svg"
+      ></svg-icon>
+      Add New Document
+    </a>
+  </div>
+
+  <div
+    class="tw-overflow-y-scroll disable-scrollbars tw-h-[100vh] tw-pb-[8rem]"
+  >
+    @for (post of posts(); track post.id) {
+      <app-post-entry [post]="post"></app-post-entry>
+    }
+  </div>
 </div>
